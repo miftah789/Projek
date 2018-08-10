@@ -9,7 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.miftah.asyst.listview.adapter.PersonAdapter;
 import com.miftah.asyst.listview.fragment.EditFragment;
+import com.miftah.asyst.listview.model.Person;
 
 import java.util.ArrayList;
 
@@ -21,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     ArrayList<String> listNama = new ArrayList<>();
     ArrayAdapter arrayAdapter;
+
+    ArrayList<Person> listPerson = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +43,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         listNama.add("Feby");
         listNama.add("Loisa");
 
-        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listNama);
+        for (int i = 0; i < 10; i++) {
+            Person person = new Person("Nama ke-" + i, "Alamat ke-" + i);
+            listPerson.add(person);
+        }
 
-        listView.setAdapter(arrayAdapter);
+        PersonAdapter personAdapter = new PersonAdapter(this, listPerson);
+
+//        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listNama);
+
+        listView.setAdapter(personAdapter);
         listView.setOnItemLongClickListener(this);
         btnAdd.setOnClickListener(this);
     }
